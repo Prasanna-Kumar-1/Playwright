@@ -11,4 +11,5 @@ test.describe("Login to Notes App", () => {
   }) => {
     await loginPage.Login("prasanna.mallisetty@gmail.com", "");
   });
+  test.skip("Skipping this test", async () => {});
 });
