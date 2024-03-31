@@ -4,12 +4,13 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  deployment_status:
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    if: github.event.deployment_status.state == 'success'
+    defaults:
+      run:
+        working-directory: ./tests/*
     container:
       image: mcr.microsoft.com/playwright:v1.42.1-jammy
     steps:
