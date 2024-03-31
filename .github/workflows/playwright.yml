@@ -6,9 +6,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./tests
     container:
       image: mcr.microsoft.com/playwright:v1.42.1-jammy
     steps:
