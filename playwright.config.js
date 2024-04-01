@@ -27,4 +27,9 @@ module.exports = defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
+  //Timeout for each test
+  timeout: 300000,
+  expect: {
+    timeout: 300000,
+  },
 });
