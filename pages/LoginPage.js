@@ -1,27 +1,48 @@
-const { expect } = require("@playwright/test");
+import BasePage from "./BasePage";
+import testData from "../data/testData.json";
 
-export class LoginPage {
+class LoginPage extends BasePage {
   constructor(page) {
-    this.page = page;
-    this.loginLink = page.getByRole("link", { name: "Login" });
-    this.loginUserName = page.getByTestId("login-email");
-    this.loginPassword = page.getByTestId("login-password");
-    this.loginButton = page.getByTestId("login-submit");
-    this.notesDashboardHeading = page.getByRole("link", {
-      name: "Home - My Notes",
-    });
+    super(page);
+    this.loginPageLogo = page.locator(".login_logo");
+    this.userName = page.locator("[data-test='username']");
+    this.password = page.locator("[data-test='password']");
+    this.loginButton = page.locator("[data-test='login-button']");
+    this.loginPageBotImage = page.locator(".bot_column");
   }
 
-  async GotoLoginPage(web_url) {
-    await this.page.goto(web_url);
+  async visitUrl() {
+    await super.openUrl(testData.baseUrl);
+    return await super.waitForPageLoad();
   }
 
-  async Login(username, password) {
-    await expect.soft(this.loginLink).toBeVisible();
-    await this.loginLink.click();
-    await this.loginUserName.fill(username);
-    await this.loginPassword.fill(password);
-    await this.loginButton.click();
-    // await expect.soft(this.notesDashboardHeading).toBeAttached();
+  async verifyLoginPageLogo() {
+    return await this.isElementVisible(
+      this.loginPageLogo,
+      testData.notVisibleText
+    );
+  }
+
+  async userNameFieldVisible() {
+    return await this.isElementVisible(this.userName, testData.notVisibleText);
+  }
+
+  async passwordFieldVisible() {
+    return await this.isElementVisible(this.password, testData.notVisibleText);
+  }
+
+  async loginButtonIsEnabled() {
+    return await this.isElementEnabled(
+      this.loginButton,
+      testData.notEnabledText
+    );
+  }
+
+  async loginAsStandardUser() {
+    await this.fill(this.userName, testData.standardUser);
+    await this.fill(this.password, testData.password);
+    await this.click(this.loginButton);
   }
 }
+
+export default LoginPage;
