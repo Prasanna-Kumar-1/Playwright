@@ -9,6 +9,8 @@ module.exports = defineConfig({
   reporter: "html",
   use: {
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "on-first-retry",
   },
 
   projects: [
