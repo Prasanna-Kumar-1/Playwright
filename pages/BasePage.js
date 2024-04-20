@@ -29,7 +29,7 @@ class BasePage {
     return await this.page.waitForTimeout(10000);
   }
 
-  async fill(selector, text) {
+  async fillTheData(selector, text) {
     return await this.page.fill(selector, text);
   }
 

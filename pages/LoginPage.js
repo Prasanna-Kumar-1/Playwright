@@ -1,14 +1,15 @@
 import BasePage from "./BasePage";
 import testData from "../data/testData.json";
+import {
+  loginPageLogo,
+  username,
+  password,
+  loginButton,
+} from "../pageobjects/loginPage";
 
 class LoginPage extends BasePage {
   constructor(page) {
     super(page);
-    this.loginPageLogo = page.locator(".login_logo");
-    this.userName = page.locator("[data-test='username']");
-    this.password = page.locator("[data-test='password']");
-    this.loginButton = page.locator("[data-test='login-button']");
-    this.loginPageBotImage = page.locator(".bot_column");
   }
 
   async visitUrl() {
@@ -17,31 +18,25 @@ class LoginPage extends BasePage {
   }
 
   async verifyLoginPageLogo() {
-    return await this.isElementVisible(
-      this.loginPageLogo,
-      testData.notVisibleText
-    );
+    return await this.isElementVisible(loginPageLogo, testData.notVisibleText);
   }
 
   async userNameFieldVisible() {
-    return await this.isElementVisible(this.userName, testData.notVisibleText);
+    return await this.isElementVisible(username, testData.notVisibleText);
   }
 
   async passwordFieldVisible() {
-    return await this.isElementVisible(this.password, testData.notVisibleText);
+    return await this.isElementVisible(password, testData.notVisibleText);
   }
 
   async loginButtonIsEnabled() {
-    return await this.isElementEnabled(
-      this.loginButton,
-      testData.notEnabledText
-    );
+    return await this.isElementEnabled(loginButton, testData.notEnabledText);
   }
 
   async loginAsStandardUser() {
-    await this.fill(this.userName, testData.standardUser);
-    await this.fill(this.password, testData.password);
-    await this.click(this.loginButton);
+    await this.fillTheData(username, testData.standard_user);
+    await this.fillTheData(password, testData.password);
+    await this.click(loginButton);
   }
 }
 
