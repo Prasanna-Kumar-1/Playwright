@@ -1,10 +1,10 @@
 import test from "../fixtures/fixture.js";
 import { expect } from "@playwright/test";
-import { configData } from "../config.js";
 
 test.describe("Login to saucedemo application", () => {
   test("Should verify login to saucedemo application as a standard user", async ({
     loginPage,
+    productsPage,
   }) => {
     await test.step("Should open the sauce demo application and verify the logo", async () => {
       await loginPage.visitUrl();
@@ -24,6 +24,11 @@ test.describe("Login to saucedemo application", () => {
 
     await test.step("Should verify login to Sauce demo as standard user", async () => {
       await loginPage.loginAsStandardUser();
+    });
+
+    await test.step(`Should verify the product page shopping cart icon and product sort container visible`, async () => {
+      await productsPage.isShopingCartLinkVisible();
+      await productsPage.isProductSortContainerVisible();
     });
   });
 });
