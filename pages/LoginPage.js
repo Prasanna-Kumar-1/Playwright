@@ -1,4 +1,4 @@
-import BasePage from "./BasePage";
+import BasePage from "./basePage";
 import testData from "../data/testData.json";
 import {
   loginPageLogo,
